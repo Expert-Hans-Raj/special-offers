@@ -1,0 +1,50 @@
+{% assign frequently_bought_products = product.metafields.custom.frequently_bought_products_multi.value %}
+
+{% if frequently_bought_products != blank %}
+  <div class="sale-wrp">
+    <div class="upsell frequently_bought_heading_main">Special Offers</div>
+    {% for frequently_bought in frequently_bought_products %}
+      <div class="frequently_bought_main">
+        <div class="inner-wrp">
+          <div class="cstm-card">
+            <div class="frequenty_image">
+              <img src="{{ frequently_bought.featured_image | img_url: '100x100' }}">
+            </div>
+            <div class="content">
+              <input type="hidden" class="frequently_bought" value="{{ frequently_bought.variants.first.id }}">
+              <div class="title_price_combine">
+                <div class="frequenty_title">{{ frequently_bought.title }}</div>
+                {% if frequently_bought.compare_at_price != blank %}
+                  <div class="frequenty__compare_price">Was: {{ frequently_bought.compare_at_price | money }}</div>
+                {% endif %}
+                <div class="frequenty__orignal_price">Now: {{ frequently_bought.price | money }}</div>
+              </div>
+              <div class="button-add">
+                <svg
+                  class="loader_custom"
+                  aria-hidden="true"
+                  focusable="false"
+                  role="presentation"
+                  class="spinner"
+                  viewBox="0 0 66 66"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style="display: none;"
+                >
+                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                </svg>
+                <div class="cart-added-succes" style="color: green; display: none;">Add to Cart Successfully</div>
+                <button
+                  type="submit"
+                  name="add"
+                  class="custom-add-cart-frequently_bought button button--full-width button--primary"
+                >
+                  <span>Add This</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
